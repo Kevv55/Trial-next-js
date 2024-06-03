@@ -47,7 +47,7 @@ export default function App() {
 
       <div className="grid">
         {todos.map((todo) => (
-          <div className="note">
+          <div className="note" key={todo.id}>
             <button onClick={() => deleteTodo(todo.id)}>X</button>
             <p>{todo.content}</p>
           </div>

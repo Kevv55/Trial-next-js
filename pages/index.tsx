@@ -6,6 +6,7 @@ const client = generateClient<Schema>();
 
 export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [t, setT] = useState("");
 
   function listTodos() {
     client.models.Todo.observeQuery().subscribe({
@@ -19,7 +20,7 @@ export default function App() {
 
   function createTodo() {
     client.models.Todo.create({
-      content: window.prompt("Todo content"),
+      content: t,
     });
   }
 
@@ -27,19 +28,20 @@ export default function App() {
     <main>
       <h1>My todos</h1>
       <p>Trial...</p>
-      <button onClick={createTodo}>+ new</button>
+      {/* <button onClick={createTodo}>+ new</button> */}
+      <form onSubmit={createTodo}>
+        <input
+          placeholder="Type in..."
+          value={t}
+          onChange={(e) => setT(e.target.value)}
+        ></input>
+        <button type="submit">New</button>
+      </form>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>{todo.content}</li>
         ))}
       </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/">
-          Review next steps of this tutorial.
-        </a>
-      </div>
     </main>
   );
 }

@@ -15,6 +15,7 @@ export default function App() {
 
   useEffect(() => {
     listTodos();
+    console.log("To-dos", todos);
   }, []);
 
   function createTodo() {
@@ -27,24 +28,38 @@ export default function App() {
     client.models.Todo.delete({ id });
   }
 
+  console.log("Trial");
+
+  client.models.Todo.observeQuery().subscribe({
+    next: (data) => console.log([...data.items]),
+  });
+
   return (
     <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li onClick={() => deleteTodo(todo.id)} key={todo.id}>
-            {todo.content}
-          </li>
-        ))}
-      </ul>
       <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/">
-          Review next steps of this tutorial.
-        </a>
+        <h1>Notes</h1>
+        <button onClick={createTodo}>New</button>
+        {/* <ul>
+          {todos.map((todo) => (
+            <li onClick={() => deleteTodo(todo.id)} key={todo.id}>
+              {todo.content}
+            </li>
+          ))}
+        </ul> */}
+        <div>
+          {todos.map((todo) => (
+            <Note content={todo.content} />
+          ))}
+        </div>
       </div>
     </main>
+  );
+}
+
+export function Note({ content }: any) {
+  return (
+    <div>
+      <p>{content}</p>
+    </div>
   );
 }

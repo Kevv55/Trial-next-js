@@ -16,7 +16,7 @@ export default function App() {
   useEffect(() => {
     listTodos();
     console.log("To-dos", todos);
-  }, []);
+  }, [todos]);
 
   function createTodo() {
     client.models.Todo.create({

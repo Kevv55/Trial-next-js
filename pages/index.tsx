@@ -24,24 +24,35 @@ export default function App() {
     });
   }
 
+  function deleteTodo(id: string) {
+    client.models.Todo.delete({ id });
+  }
+
   return (
     <main>
       <h1>My todos</h1>
       <p>Trial...</p>
       {/* <button onClick={createTodo}>+ new</button> */}
-      <form onSubmit={createTodo}>
-        <input
-          placeholder="Type in..."
-          value={t}
-          onChange={(e) => setT(e.target.value)}
-        ></input>
-        <button type="submit">New</button>
-      </form>
-      <ul>
+      <div className="note">
+        <form onSubmit={createTodo} style={{ display: "contents" }}>
+          <input
+            placeholder="Type in..."
+            value={t}
+            onChange={(e) => setT(e.target.value)}
+            className="form"
+          ></input>
+          <button type="submit">New</button>
+        </form>
+      </div>
+
+      <div className="grid">
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+          <div className="note">
+            <button onClick={() => deleteTodo(todo.id)}>X</button>
+            <p>{todo.content}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }

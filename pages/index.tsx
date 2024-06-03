@@ -30,20 +30,9 @@ export default function App() {
 
   return (
     <main>
-      <h1>My todos</h1>
-      <p>Trial...</p>
+      <h1>My Notes</h1>
+      <p>Try typing in something...</p>
       {/* <button onClick={createTodo}>+ new</button> */}
-      <div className="note">
-        <form onSubmit={createTodo} style={{ display: "contents" }}>
-          <input
-            placeholder="Type in..."
-            value={t}
-            onChange={(e) => setT(e.target.value)}
-            className="form"
-          ></input>
-          <button type="submit">New</button>
-        </form>
-      </div>
 
       <div className="grid">
         {todos.map((todo) => (
@@ -52,6 +41,20 @@ export default function App() {
             <p>{todo.content}</p>
           </div>
         ))}
+      </div>
+
+      <div style={{ width: "200px", display: "flex" }}>
+        <div className="note">
+          <form onSubmit={createTodo} style={{ display: "contents" }}>
+            <input
+              placeholder="Type in..."
+              value={t}
+              onChange={(e) => setT(e.target.value)}
+              className="form"
+            ></input>
+            <button type="submit">New</button>
+          </form>
+        </div>
       </div>
     </main>
   );
